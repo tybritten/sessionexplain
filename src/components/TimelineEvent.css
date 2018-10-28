@@ -1,0 +1,15 @@
+.Event {
+    padding: 0.75em;
+}
+
+.Event-time {
+    font-weight: bold;
+}
+
+.Event-summary {
+    font-weight: normal;
+}
+
+.Event-body {
+    color: #AAA;
+}
