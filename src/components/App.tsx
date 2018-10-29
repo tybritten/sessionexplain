@@ -27,8 +27,8 @@ class App extends React.Component<Props, State> {
     return (
       <div className="App container">
         <div className="App-header"><h1>GoFlow Session Explain</h1></div>
-        <textarea id="source" className="App-source form-control" value={this.state.source} onChange={this.handleChange} />
-        <button onClick={this.explain} className="btn btn-primary">Explain</button>
+        <textarea id="source" className="App-source" value={this.state.source} onChange={this.handleChange} />
+        <button onClick={this.explain}>Explain</button>
         <div id="problems"></div>
         {this.state.explain != null &&
           <div id="explain">

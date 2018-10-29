@@ -16,7 +16,7 @@ export class Timeline extends React.Component<Props> {
 
     public render() {
         const items = this.props.events.map((event, i) =>
-            <TimelineEvent event={event} index={i} />
+            <TimelineEvent event={event} key={i} />
         );
 
         return (
