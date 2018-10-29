@@ -6,27 +6,39 @@ interface Props {
     event: ExplainEvent;
 }
 
-export class TimelineEvent extends React.Component<Props> {
+interface State {
+    showBody: boolean;
+}
+
+export class TimelineEvent extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+
+        this.state = { showBody: false };
+
+        this.handleToggleBody = this.handleToggleBody.bind(this);
+    }
+
+    handleToggleBody() {
+        this.setState({ showBody: !this.state.showBody });
     }
 
     render() {
         const eventObj: any = this.props.event.event;
-        var [emoji, summary] = this.renderType(this.props.event.type, eventObj);
+        const [emoji, summary] = this.renderType(this.props.event.type, eventObj);
 
         var body = JSON.stringify(this.props.event.event);
         return (
             <li>
-                <div>
+                <div className="Event-header" onClick={this.handleToggleBody}>
                     {emoji}
                     &nbsp;
                     <span className="Event-time">{this.props.event.time.toISOString()}</span>
                     &nbsp;
                     <span className="Event-summary">{summary}</span>
                 </div>
-                <div className="Event-body">{body}</div>
+                <div className="Event-body" style={this.state.showBody ? {} : { "display": "none" }}>{body}</div>
             </li>
         );
     }
@@ -34,6 +46,9 @@ export class TimelineEvent extends React.Component<Props> {
     // helper to return an emoji and a summary for each different event type
     renderType(typeName: string, event: any): [string, string] {
         switch (typeName) {
+            case "broadcast_created":
+                const text: string = event.translations[event.base_language].text;
+                return ["🔉", `broadcasted "${text}" to ...`]
             case "contact_field_changed":
                 return ["✏️", `field '${event.field.key}' changed to '${event.value.text}'`];
             case "contact_groups_changed":
@@ -53,12 +68,14 @@ export class TimelineEvent extends React.Component<Props> {
                 return ["🕑", `timezone changed to '${event.timezone}'`];
             case "contact_urns_changed":
                 return ["☎️", `URNs changed to ${event.urns.join(", ")}`];
+            case "email_created":
+                return ["✉️", `email sent to ${event.addresses.join(", ")}`];
             case "error":
                 return ["⚠️", event.text];
             case "flow_triggered":
-                return ["↪️", `triggered flow '${event.flow.name}'`]
+                return ["↪️", `triggered flow '${event.flow.name}'`];
             case "input_labels_added":
-                return ["🏷️", `labeled with ${extractNames(event.labels)}`]
+                return ["🏷️", `labeled with ${extractNames(event.labels)}`];
             case "msg_created":
                 return ["💬", `"${event.msg.text}"`];
             case "msg_received":
@@ -77,5 +94,5 @@ export class TimelineEvent extends React.Component<Props> {
 }
 
 function extractNames(items: any[]): string {
-    return items.map((i) => `'${i.name}'`).join(", ")
+    return items.map((i) => `'${i.name}'`).join(", ");
 }

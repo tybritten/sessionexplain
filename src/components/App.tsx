@@ -16,19 +16,32 @@ class App extends React.Component<Props, State> {
     super(props);
     this.state = { source: '{"status": "waiting", "runs": []}', explain: null };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleExplain = this.handleExplain.bind(this);
+    this.handleChangeSource = this.handleChangeSource.bind(this);
   }
 
-  handleChange(event: any) {
+  handleChangeSource(event: any) {
     this.setState({ source: event.target.value });
+  }
+
+  handleExplain() {
+    try {
+      const session = ReadSession(this.state.source)
+      const explain = new Explain(session);
+
+      this.setState({ source: this.state.source, explain: explain })
+
+    } catch (e) {
+      console.log('Error:', e);
+    }
   }
 
   public render() {
     return (
       <div className="App container">
         <div className="App-header"><h1>GoFlow Session Explain</h1></div>
-        <textarea id="source" className="App-source" value={this.state.source} onChange={this.handleChange} />
-        <button onClick={this.explain}>Explain</button>
+        <textarea id="source" className="App-source" value={this.state.source} onChange={this.handleChangeSource} />
+        <button onClick={this.handleExplain}>Explain</button>
         <div id="problems"></div>
         {this.state.explain != null &&
           <div id="explain">
@@ -37,18 +50,6 @@ class App extends React.Component<Props, State> {
         }
       </div>
     );
-  }
-
-  explain = () => {
-    try {
-      var session = ReadSession(this.state.source)
-      var explain = new Explain(session);
-
-      this.setState({ source: this.state.source, explain: explain })
-
-    } catch (e) {
-      console.log('Error:', e);
-    }
   }
 }
 
