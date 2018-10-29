@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { Event } from 'src/utils/GoFlow';
 import './TimelineEvent.css';
-import { ExplainEvent } from 'src/utils/Explain';
 
 interface Props {
-    event: ExplainEvent;
+    event: Event;
 }
 
 interface State {
@@ -25,21 +25,21 @@ export class TimelineEvent extends React.Component<Props, State> {
     }
 
     render() {
-        const eventObj: any = this.props.event.event;
+        const eventObj: any = this.props.event;
         const [emoji, summary] = this.renderType(this.props.event.type, eventObj);
 
-        var body = JSON.stringify(this.props.event.event);
+        var body = JSON.stringify(this.props.event);
         return (
-            <li>
+            <div className="Event">
                 <div className="Event-header" onClick={this.handleToggleBody}>
                     {emoji}
                     &nbsp;
-                    <span className="Event-time">{this.props.event.time.toISOString()}</span>
+                    <span className="Event-time">{this.props.event.created_on}</span>
                     &nbsp;
                     <span className="Event-summary">{summary}</span>
                 </div>
                 <div className="Event-body" style={this.state.showBody ? {} : { "display": "none" }}>{body}</div>
-            </li>
+            </div>
         );
     }
 

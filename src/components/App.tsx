@@ -38,14 +38,14 @@ class App extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div className="App container">
+      <div className="App">
         <div className="App-header"><h1>GoFlow Session Explain</h1></div>
         <textarea id="source" className="App-source" value={this.state.source} onChange={this.handleChangeSource} />
         <button onClick={this.handleExplain}>Explain</button>
         <div id="problems"></div>
         {this.state.explain != null &&
-          <div id="explain">
-            <Timeline events={this.state.explain.events} />
+          <div className="App-explain">
+            <Timeline frames={this.state.explain.frames} />
           </div>
         }
       </div>

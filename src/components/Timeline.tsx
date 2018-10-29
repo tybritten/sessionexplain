@@ -1,11 +1,11 @@
 import * as React from 'react';
 import './Timeline.css';
 
-import { ExplainEvent } from 'src/utils/Explain';
-import { TimelineEvent } from './TimelineEvent';
+import { ExplainFrame } from 'src/utils/Explain';
+import { TimelineFrame } from './TimelineFrame';
 
 interface Props {
-    events: ExplainEvent[];
+    frames: ExplainFrame[];
 }
 
 export class Timeline extends React.Component<Props> {
@@ -15,12 +15,13 @@ export class Timeline extends React.Component<Props> {
     }
 
     public render() {
-        const items = this.props.events.map((event, i) =>
-            <TimelineEvent event={event} key={i} />
+        const items = this.props.frames.map((frame, i) =>
+            <TimelineFrame frame={frame} key={`frame${i}`} />
         );
 
         return (
-            <ul className="Timeline">{items}</ul>
+            <div className="Timeline">{items}</div>
         );
     }
 }
+

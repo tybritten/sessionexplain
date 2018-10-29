@@ -1,42 +1,62 @@
 import { Session, Event, Run } from './GoFlow';
 
-export class ExplainEvent {
+export class ExplainFrame {
     public run: Run;
-    public event: Event;
+    public events: Event[];
 
-    constructor(run: Run, event: Event) {
-        this.event = event;
-    }
-
-    get type(): string {
-        return this.event.type;
-    }
-
-    get time(): Date {
-        return new Date(this.event.created_on)
+    constructor(run: Run) {
+        this.run = run;
+        this.events = [];
     }
 }
 
 export class Explain {
-    public events: ExplainEvent[];
+    public frames: ExplainFrame[];
 
     constructor(session: Session) {
 
-        this.events = [];
-
-        // TODO walk thru session properly?
+        // get all events from all runs
+        let eventAndRuns: EventAndRun[] = [];
 
         for (var r = 0; r < session.runs.length; r++) {
             var run = session.runs[r];
             var runEvents = run.events || [];
             for (var e = 0; e < runEvents.length; e++) {
                 var event = run.events[e]
-                this.events.push(new ExplainEvent(run, event))
+                eventAndRuns.push(new EventAndRun(event, run))
             }
         }
 
-        this.events.sort(function (a: ExplainEvent, b: ExplainEvent) {
-            return a.time.getTime() - b.time.getTime();
-        })
+        // sort chronologically
+        eventAndRuns.sort(function (a: EventAndRun, b: EventAndRun) { return a.time - b.time; })
+
+        this.frames = []
+
+        // organize into frames
+        let currentFrame: ExplainFrame | null = null;
+
+        for (var e = 0; e < eventAndRuns.length; e++) {
+            const er = eventAndRuns[e];
+            if (currentFrame == null || er.run != currentFrame.run) {
+                currentFrame = new ExplainFrame(er.run);
+                this.frames.push(currentFrame);
+            }
+            currentFrame.events.push(er.event);
+        }
+    }
+}
+
+
+class EventAndRun {
+    public event: Event;
+    public run: Run;
+
+    constructor(event: Event, run: Run) {
+        this.event = event;
+        this.run = run;
+    }
+
+    get time(): number {
+        return (new Date(this.event.created_on)).getTime();
     }
 }

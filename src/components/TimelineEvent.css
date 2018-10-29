@@ -1,9 +1,7 @@
-.Event {
-    padding: 0.75em;
-}
 
 .Event-header {
     cursor: pointer;
+    padding: 0.2em;
 }
 
 .Event-header:hover {
