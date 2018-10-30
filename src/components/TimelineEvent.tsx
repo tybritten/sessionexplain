@@ -32,6 +32,7 @@ export class TimelineEvent extends React.Component<Props, State> {
         const bodyElem = (
             <div dangerouslySetInnerHTML={body}></div>
         );
+        const docsURL = `https://nyaruka.github.io/goflow/sessions.html#event:${this.props.event.type}`;
 
         return (
             <div className="Event">
@@ -42,7 +43,10 @@ export class TimelineEvent extends React.Component<Props, State> {
                     &nbsp;
                     <span className="Event-summary">{summary}</span>
                 </div>
-                <div className="Event-body" style={this.state.showBody ? {} : { "display": "none" }}>{bodyElem}</div>
+                <div className="Event-body" style={this.state.showBody ? {} : { "display": "none" }}>
+                    {bodyElem}
+                    <div><a href={docsURL} target="_blank">Docs</a></div>
+                </div>
             </div>
         );
     }
@@ -113,5 +117,5 @@ function joinElements(items: JSX.Element[], sep?: JSX.Element): JSX.Element[] {
         }
         elements.push(items[i]);
     }
-    return elements
+    return elements;
 }
