@@ -19,9 +19,21 @@
 .Event-summary i {
     font-style: normal;
     font-weight: bold;
-    color: #484;
+    color: #5A5;
 }
 
-.Event-body {
+.Event-summary .msg {
+    font-weight: bold;
+    color: #55A;
+}
+
+.Event-summary .err {
+    font-weight: bold;
+    color: #A55;
+}
+
+.Event-body pre {
     color: #AAA;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
 }

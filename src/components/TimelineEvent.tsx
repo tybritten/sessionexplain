@@ -28,7 +28,11 @@ export class TimelineEvent extends React.Component<Props, State> {
         const eventObj: any = this.props.event;
         const [emoji, summary] = this.renderType(this.props.event.type, eventObj);
 
-        var body = JSON.stringify(this.props.event);
+        const body = { __html: "<pre>" + JSON.stringify(this.props.event, null, 2) + "</pre>" };
+        const bodyElem = (
+            <div dangerouslySetInnerHTML={body}></div>
+        );
+
         return (
             <div className="Event">
                 <div className="Event-header" onClick={this.handleToggleBody}>
@@ -38,7 +42,7 @@ export class TimelineEvent extends React.Component<Props, State> {
                     &nbsp;
                     <span className="Event-summary">{summary}</span>
                 </div>
-                <div className="Event-body" style={this.state.showBody ? {} : { "display": "none" }}>{body}</div>
+                <div className="Event-body" style={this.state.showBody ? {} : { "display": "none" }}>{bodyElem}</div>
             </div>
         );
     }
@@ -48,51 +52,66 @@ export class TimelineEvent extends React.Component<Props, State> {
         switch (typeName) {
             case "broadcast_created":
                 const text: string = event.translations[event.base_language].text;
-                return ["🔉", <span>broadcasted <i>{text}</i> to ...</span>]
+                return ["🔉", <>broadcasted <i>{text}</i> to ...</>]
             case "contact_field_changed":
-                return ["✏️", <span>field <i>{event.field.key}</i> changed to <i>{event.value.text}</i></span>];
+                return ["✏️", <>field <i>{event.field.key}</i> changed to <i>{event.value.text}</i></>];
             case "contact_groups_changed":
-                var msgs: string[] = [];
+                var msgs: JSX.Element[] = [];
                 if (event.groups_added) {
-                    msgs.push(`added to ${extractNames(event.groups_added)}`);
+                    msgs.push(<>added to {renderValList(event.groups_added)}</>);
                 }
                 if (event.groups_removed) {
-                    msgs.push(`removed from ${extractNames(event.groups_removed)}`);
+                    msgs.push(<>removed from {renderValList(event.groups_removed)}</>);
                 }
-                return ["👪", <span>{msgs.join(", ")}</span>];
+                return ["👪", <>{joinElements(msgs)}</>];
             case "contact_name_changed":
-                return ["📛", <span>name changed to <i>{event.name}</i></span>];
+                return ["📛", <>name {event.name ? <>changed to <i>{event.name}</i></> : <>cleared</>}</>];
             case "contact_language_changed":
-                return ["🌐", <span>language changed to <i>{event.language}</i></span>];
+                return ["🌐", <>language {event.language ? <>changed to <i>{event.language}</i></> : <>cleared</>}</>];
             case "contact_timezone_changed":
-                return ["🕑", <span>timezone changed to <i>{event.timezone}</i></span>];
+                return ["🕑", <>timezone {event.timezone ? <>changed to <i>{event.timezone}</i></> : <>cleared</>}</>];
             case "contact_urns_changed":
-                return ["☎️", <span>URNs changed to {event.urns.join(", ")}</span>];
+                return ["☎️", <>URNs changed to {renderValList(event.urns)}</>];
             case "email_created":
-                return ["✉️", <span>email sent to {event.addresses.join(", ")}</span>];
+                return ["✉️", <>email sent to {renderValList(event.addresses)}</>];
             case "error":
-                return ["⚠️", <span>{event.text}</span>];
+                return ["⚠️", <span className="err">{event.text}</span>];
             case "flow_triggered":
-                return ["↪️", <span>triggered flow <i>{event.flow.name}</i></span>];
+                return ["↪️", <>triggered flow <i>{event.flow.name}</i></>];
             case "input_labels_added":
-                return ["🏷️", <span>labeled with {extractNames(event.labels)}</span>];
+                return ["🏷️", <>labeled with {renderValList(event.labels)}</>];
             case "msg_created":
-                return ["💬", <span>"{event.msg.text}"</span>];
+                return ["💬", <>message sent <span className="msg">"{event.msg.text}"</span></>];
             case "msg_received":
-                return ["📥", <span>received message <i>{event.msg.text}</i></span>];
+                return ["📥", <>message received <span className="msg">"{event.msg.text}"</span></>];
             case "msg_wait":
-                return ["⏳", <span>waiting for message...</span>];
+                return ["⏳", <>waiting for message...</>];
             case "run_result_changed":
-                return ["📈", <span>run result <i>{event.name}</i> changed to <i>{event.value}</i></span>];
+                return ["📈", <>run result <i>{event.name}</i> changed to <i>{event.value}</i></>];
             case "session_triggered":
-                return ["🌱", <span>triggered session ...</span>];
+                return ["🌱", <>session triggered for <i>{event.flow.name}</i></>];
             case "webhook_called":
-                return ["☁️", <span>called <i>{event.url}</i></span>];
+                return ["☁️", <>called <i>{event.url}</i></>];
         }
-        return ["❓", <span>{typeName}</span>];
+        return ["❓", <>{typeName}</>];
     }
 }
 
-function extractNames(items: any[]): string {
-    return items.map((i) => `'${i.name}'`).join(", ");
+function renderValList(items: any[]): JSX.Element[] {
+    return joinElements(items.map((i) => <i>{typeof i.name == 'undefined' ? i : i.name}</i>))
+}
+
+// joins elements with the given separator which defaults to a comma
+function joinElements(items: JSX.Element[], sep?: JSX.Element): JSX.Element[] {
+    if (sep == null) {
+        sep = <>, </>
+    }
+    let elements: JSX.Element[] = [];
+    for (let i = 0; i < items.length; i++) {
+        if (i > 0) {
+            elements.push(sep);
+        }
+        elements.push(items[i]);
+    }
+    return elements
 }
