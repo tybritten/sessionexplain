@@ -32,6 +32,14 @@
   cursor: pointer;
 }
 
+.App-problem {
+  border-radius: 5px;
+  background-color: #faa0a0;
+  color: white;
+  padding: 0.5em 0.75em;
+  margin-top: 1em;
+}
+
 .App-explain {
   padding-top: 1em;
 }

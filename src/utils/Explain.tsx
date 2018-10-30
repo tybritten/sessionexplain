@@ -2,6 +2,7 @@ import { Session, Event, Run } from './GoFlow';
 
 export class ExplainFrame {
     public run: Run;
+    public initial: boolean;
     public events: Event[];
 
     constructor(run: Run) {

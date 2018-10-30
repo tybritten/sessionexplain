@@ -9,12 +9,13 @@ interface Props { }
 interface State {
   source: string;
   explain: Explain | null;
+  problem: string;
 }
 
 class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { source: '{"status": "waiting", "runs": []}', explain: null };
+    this.state = { source: '{"status": "waiting", "runs": []}', explain: null, problem: "" };
 
     this.handleExplain = this.handleExplain.bind(this);
     this.handleChangeSource = this.handleChangeSource.bind(this);
@@ -29,10 +30,9 @@ class App extends React.Component<Props, State> {
       const session = ReadSession(this.state.source)
       const explain = new Explain(session);
 
-      this.setState({ source: this.state.source, explain: explain })
-
+      this.setState({ source: this.state.source, explain: explain, problem: "" });
     } catch (e) {
-      console.log('Error:', e);
+      this.setState({ source: this.state.source, explain: null, problem: e });
     }
   }
 
@@ -40,9 +40,11 @@ class App extends React.Component<Props, State> {
     return (
       <div className="App">
         <div className="App-header"><h1>🕵️ GoFlow Session Explain</h1></div>
-        <textarea id="source" className="App-source" value={this.state.source} onChange={this.handleChangeSource} />
+        <textarea className="App-source" value={this.state.source} onChange={this.handleChangeSource} />
         <button onClick={this.handleExplain}>Explain</button>
-        <div id="problems"></div>
+        {this.state.problem != "" &&
+          <div className="App-problem">{this.state.problem}</div>
+        }
         {this.state.explain != null &&
           <div className="App-explain">
             <Timeline frames={this.state.explain.frames} />

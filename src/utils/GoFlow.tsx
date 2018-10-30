@@ -23,7 +23,7 @@ export function ReadSession(src: string): Session {
     try {
         var obj = JSON.parse(src);
     } catch (e) {
-        throw "invalid JSON"
+        throw `invalid JSON: ${e}`;
     }
 
     if (!isSession(obj)) {
