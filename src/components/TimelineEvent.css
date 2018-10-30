@@ -16,6 +16,12 @@
     font-weight: normal;
 }
 
+.Event-summary i {
+    font-style: normal;
+    font-weight: bold;
+    color: #484;
+}
+
 .Event-body {
     color: #AAA;
 }

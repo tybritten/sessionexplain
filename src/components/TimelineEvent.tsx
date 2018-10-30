@@ -44,13 +44,13 @@ export class TimelineEvent extends React.Component<Props, State> {
     }
 
     // helper to return an emoji and a summary for each different event type
-    renderType(typeName: string, event: any): [string, string] {
+    renderType(typeName: string, event: any): [string, JSX.Element] {
         switch (typeName) {
             case "broadcast_created":
                 const text: string = event.translations[event.base_language].text;
-                return ["🔉", `broadcasted "${text}" to ...`]
+                return ["🔉", <span>broadcasted <i>{text}</i> to ...</span>]
             case "contact_field_changed":
-                return ["✏️", `field '${event.field.key}' changed to '${event.value.text}'`];
+                return ["✏️", <span>field <i>{event.field.key}</i> changed to <i>{event.value.text}</i></span>];
             case "contact_groups_changed":
                 var msgs: string[] = [];
                 if (event.groups_added) {
@@ -59,37 +59,37 @@ export class TimelineEvent extends React.Component<Props, State> {
                 if (event.groups_removed) {
                     msgs.push(`removed from ${extractNames(event.groups_removed)}`);
                 }
-                return ["👪", msgs.join(", ")];
+                return ["👪", <span>{msgs.join(", ")}</span>];
             case "contact_name_changed":
-                return ["📛", `name changed to "${event.name}"`];
+                return ["📛", <span>name changed to <i>{event.name}</i></span>];
             case "contact_language_changed":
-                return ["🌐", `language changed to '${event.language}'`];
+                return ["🌐", <span>language changed to <i>{event.language}</i></span>];
             case "contact_timezone_changed":
-                return ["🕑", `timezone changed to '${event.timezone}'`];
+                return ["🕑", <span>timezone changed to <i>{event.timezone}</i></span>];
             case "contact_urns_changed":
-                return ["☎️", `URNs changed to ${event.urns.join(", ")}`];
+                return ["☎️", <span>URNs changed to {event.urns.join(", ")}</span>];
             case "email_created":
-                return ["✉️", `email sent to ${event.addresses.join(", ")}`];
+                return ["✉️", <span>email sent to {event.addresses.join(", ")}</span>];
             case "error":
-                return ["⚠️", event.text];
+                return ["⚠️", <span>{event.text}</span>];
             case "flow_triggered":
-                return ["↪️", `triggered flow '${event.flow.name}'`];
+                return ["↪️", <span>triggered flow <i>{event.flow.name}</i></span>];
             case "input_labels_added":
-                return ["🏷️", `labeled with ${extractNames(event.labels)}`];
+                return ["🏷️", <span>labeled with {extractNames(event.labels)}</span>];
             case "msg_created":
-                return ["💬", `"${event.msg.text}"`];
+                return ["💬", <span>"{event.msg.text}"</span>];
             case "msg_received":
-                return ["📥", `received message "${event.msg.text}"`];
+                return ["📥", <span>received message <i>{event.msg.text}</i></span>];
             case "msg_wait":
-                return ["⏳", "waiting for message..."];
+                return ["⏳", <span>waiting for message...</span>];
             case "run_result_changed":
-                return ["📈", `run result '${event.name}' changed to '${event.value}'`];
+                return ["📈", <span>run result <i>{event.name}</i> changed to <i>{event.value}</i></span>];
             case "session_triggered":
-                return ["🌱", `triggered session ...`];
+                return ["🌱", <span>triggered session ...</span>];
             case "webhook_called":
-                return ["☁️", `called '${event.url}'`];
+                return ["☁️", <span>called <i>{event.url}</i></span>];
         }
-        return ["❓", typeName];
+        return ["❓", <span>{typeName}</span>];
     }
 }
 
