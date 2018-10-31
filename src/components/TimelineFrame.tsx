@@ -4,6 +4,7 @@ import { ExplainFrame } from 'src/utils/Explain';
 
 interface Props {
     frame: ExplainFrame;
+    index: number;
 }
 
 export class TimelineFrame extends React.Component<Props> {
@@ -15,7 +16,7 @@ export class TimelineFrame extends React.Component<Props> {
     public render() {
         const frame = this.props.frame;
         const events = frame.events.map((event, i) =>
-            <TimelineEvent event={event} key={`event${i}`} />
+            <TimelineEvent event={event} key={`frame${this.props.index}-event${i}`} />
         );
 
         const message = `${frame.isResume ? "↩️ Resuming" : "⬇️ Starting"} run #${frame.runIndex + 1}`;
