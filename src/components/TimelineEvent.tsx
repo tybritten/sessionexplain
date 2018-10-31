@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Event } from 'src/utils/GoFlow';
-import './TimelineEvent.css';
 
 interface Props {
     event: Event;
@@ -62,10 +61,10 @@ export class TimelineEvent extends React.Component<Props, State> {
             case "contact_groups_changed":
                 var msgs: JSX.Element[] = [];
                 if (event.groups_added) {
-                    msgs.push(<>added to {renderValList(event.groups_added)}</>);
+                    msgs.push(<span key={0}>added to {renderValList(event.groups_added)}</span>);
                 }
                 if (event.groups_removed) {
-                    msgs.push(<>removed from {renderValList(event.groups_removed)}</>);
+                    msgs.push(<span key={1}>removed from {renderValList(event.groups_removed)}</span>);
                 }
                 return ["👪", <>{joinElements(msgs)}</>];
             case "contact_name_changed":
@@ -102,7 +101,7 @@ export class TimelineEvent extends React.Component<Props, State> {
 }
 
 function renderValList(items: any[]): JSX.Element[] {
-    return joinElements(items.map((i) => <i>{typeof i.name == 'undefined' ? i : i.name}</i>))
+    return joinElements(items.map((i, index) => <i key={index}>{typeof i.name == 'undefined' ? i : i.name}</i>))
 }
 
 // joins elements with the given separator which defaults to a comma

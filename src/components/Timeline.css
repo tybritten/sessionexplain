@@ -1,2 +1,55 @@
 .Timeline {
 }
+
+.Timeline-Frame {
+    display: grid;
+    grid-template-columns: 25% auto;
+    border-top: 1px solid #333;
+    padding: 0.5em;
+}
+
+.Frame-RunInfo {
+    padding: 0.2em 1em 0.2em 0.2em;
+}
+
+.Event {
+    padding: 0.2em;
+}
+
+.Event-header {
+    cursor: pointer;
+}
+
+.Event-header:hover {
+    background-color: #EEE;
+}
+
+.Event-time {
+    font-weight: bold;
+}
+
+.Event-summary {
+    font-weight: normal;
+}
+
+.Event-summary .msg {
+    font-weight: bold;
+    color: #55A;
+}
+
+.Event-summary .err {
+    font-weight: bold;
+    color: #A55;
+}
+
+.Event-body pre {
+    color: #AAA;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+}
+
+.Event-summary i, .Frame-RunInfo i {
+    font-style: normal;
+    font-weight: bold;
+    color: #5A5;
+}

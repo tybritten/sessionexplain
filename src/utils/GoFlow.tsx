@@ -9,9 +9,11 @@ export interface Event {
 }
 
 export interface Run {
+    uuid: string;
     flow: FlowReference;
     status: string;
     events: Event[];
+    parent_uuid: string | null;
 }
 
 export interface Session {

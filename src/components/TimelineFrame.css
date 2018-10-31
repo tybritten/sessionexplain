@@ -1,6 +1,0 @@
-.Timeline-Frame {
-    display: grid;
-    grid-template-columns: 30% auto;
-    border-top: 1px solid #333;
-    padding: 0.5em;
-}

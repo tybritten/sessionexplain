@@ -30,7 +30,10 @@ class App extends React.Component<Props, State> {
       const session = ReadSession(this.state.source)
       const explain = new Explain(session);
 
-      this.setState({ source: this.state.source, explain: explain, problem: "" });
+      // pretty print the session back out
+      const source = JSON.stringify(session, null, 2);
+
+      this.setState({ source: source, explain: explain, problem: "" });
     } catch (e) {
       this.setState({ source: this.state.source, explain: null, problem: e });
     }
