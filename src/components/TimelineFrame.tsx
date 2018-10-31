@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TimelineEvent } from './TimelineEvent';
+import { TimelineStep } from './TimelineStep';
 import { ExplainFrame } from 'src/utils/Explain';
 
 interface Props {
@@ -15,16 +15,18 @@ export class TimelineFrame extends React.Component<Props> {
 
     public render() {
         const frame = this.props.frame;
-        const events = frame.events.map((event, i) =>
-            <TimelineEvent event={event} key={`frame${this.props.index}-event${i}`} />
+        const steps = frame.steps.map((step, i) =>
+            <TimelineStep step={step} index={i} key={`frame${this.props.index}-step${i}`} />
         );
 
         const message = `${frame.isResume ? "↩️ Resuming" : "⬇️ Starting"} run #${frame.runIndex + 1}`;
 
         return (
-            <div className="Timeline-Frame">
-                <div className="Frame-RunInfo">{message} in <i>{frame.run.flow.name}</i></div>
-                <div className="Frame-Events">{events}</div>
+            <div className="Timeline-frame">
+                <div className="Frame-run-info">{message} in <i>{frame.run.flow.name}</i></div>
+                <div className="Frame-steps">
+                    {steps}
+                </div>
             </div>
         );
     }

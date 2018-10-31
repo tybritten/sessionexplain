@@ -1,10 +1,17 @@
+
 export interface FlowReference {
     uuid: string;
     name: string;
 }
 
+export interface Step {
+    uuid: string;
+    node_uuid: string;
+}
+
 export interface Event {
     type: string;
+    step_uuid: string;
     created_on: string;
 }
 
@@ -13,6 +20,7 @@ export interface Run {
     flow: FlowReference;
     status: string;
     events: Event[];
+    path: Step[];
     parent_uuid: string | null;
 }
 
