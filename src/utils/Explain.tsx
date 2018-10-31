@@ -14,14 +14,16 @@ export class ExplainStep {
 export class ExplainFrame {
     public run: Run;
     public runIndex: number;
+    public depth: number;
     public isResume: boolean;
     public steps: ExplainStep[];
 
     private helper: RunHelper;
 
-    constructor(helper: RunHelper, isResume: boolean) {
+    constructor(helper: RunHelper, depth: number, isResume: boolean) {
         this.run = helper.run;
         this.runIndex = helper.index;
+        this.depth = depth;
         this.isResume = isResume;
         this.steps = [];
 
@@ -72,19 +74,17 @@ export class Explain {
             }
         }
 
-        console.log("Run helpers built");
-
         this.frames = []
 
         // helper to create a new current frame
-        const newFrame = (run: RunHelper, isResume: boolean) => {
-            const f: ExplainFrame = new ExplainFrame(run, isResume);
+        const newFrame = (run: RunHelper, depth: number, isResume: boolean) => {
+            const f: ExplainFrame = new ExplainFrame(run, depth, isResume);
             this.frames.push(f);
             return f;
         }
 
         let currentRun: RunHelper | undefined = helpers[0];
-        let currentFrame = newFrame(currentRun, false);
+        let currentFrame = newFrame(currentRun, 0, false);
 
         while (true) {
             if (currentRun == null) {
@@ -102,7 +102,7 @@ export class Explain {
                 if (currentRun == null) {
                     break
                 }
-                currentFrame = newFrame(currentRun, true);
+                currentFrame = newFrame(currentRun, currentFrame.depth - 1, true);
             } else {
                 currentFrame.addEvent(currentEvent);
 
@@ -112,7 +112,7 @@ export class Explain {
                     if (currentRun == null) {
                         throw "Couldn't find child run for flow_triggered event";
                     }
-                    currentFrame = newFrame(currentRun, false);
+                    currentFrame = newFrame(currentRun, currentFrame.depth + 1, false);
                 }
             }
         }

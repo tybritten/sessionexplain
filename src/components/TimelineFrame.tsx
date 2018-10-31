@@ -20,10 +20,11 @@ export class TimelineFrame extends React.Component<Props> {
         );
 
         const message = `${frame.isResume ? "↩️ Resuming" : "⬇️ Starting"} run #${frame.runIndex + 1}`;
+        const indent = `${frame.depth * 15}px`;
 
         return (
             <div className="Timeline-frame">
-                <div className="Frame-run-info">{message} in <i>{frame.run.flow.name}</i></div>
+                <div className="Frame-run-info" style={{ paddingLeft: indent }}>{message} in <i>{frame.run.flow.name}</i></div>
                 <div className="Frame-steps">
                     {steps}
                 </div>
