@@ -57,7 +57,8 @@ export class TimelineEvent extends React.Component<Props, State> {
                 const text: string = event.translations[event.base_language].text;
                 return ["🔉", <>broadcasted <i>{text}</i> to ...</>]
             case "contact_field_changed":
-                return ["✏️", <>field <i>{event.field.key}</i> changed to <i>{event.value.text}</i></>];
+                const msg = event.value ? <>changed to <i>{event.value.text}</i></> : "cleared";
+                return ["✏️", <>field <i>{event.field.key}</i> {msg}</>];
             case "contact_groups_changed":
                 var msgs: JSX.Element[] = [];
                 if (event.groups_added) {

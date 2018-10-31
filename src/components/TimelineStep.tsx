@@ -18,10 +18,11 @@ export class TimelineStep extends React.Component<Props> {
         const events = step.events.map((event, i) =>
             <TimelineEvent event={event} key={`step${this.props.index}-event${i}`} />
         );
+        const tooltip = `Node UUID: ${step.step.node_uuid}`;
 
         return (
             <div className="Frame-step">
-                <div className="Step-info">
+                <div className="Step-info" title={tooltip}>
                     <div></div>
                 </div>
                 <div className="Step-events">{events}</div>
