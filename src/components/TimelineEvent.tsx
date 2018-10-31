@@ -38,8 +38,6 @@ export class TimelineEvent extends React.Component<Props, State> {
                 <div className="Event-header" onClick={this.handleToggleBody}>
                     {emoji}
                     &nbsp;
-                    <span className="Event-time">{this.props.event.created_on}</span>
-                    &nbsp;
                     <span className="Event-summary">{summary}</span>
                 </div>
                 <div className="Event-body" style={this.state.showBody ? {} : { "display": "none" }}>
