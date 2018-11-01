@@ -9,7 +9,8 @@
 }
 
 .Frame-run-info {
-    padding: 0.2em 1em 0.2em 0.2em;
+    border-left: 7px solid red;
+    padding: 0.2em 1em 0.2em 0.5em;
 }
 
 .Frame-step {
