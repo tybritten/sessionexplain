@@ -24,9 +24,14 @@ export interface Run {
     parent_uuid: string | null;
 }
 
+export interface Metadata {
+    site: string;
+}
+
 export interface Session {
     status: string;
     runs: Run[];
+    _metadata: Metadata | null;
 }
 
 export function ReadSession(src: string): Session {

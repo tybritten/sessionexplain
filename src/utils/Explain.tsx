@@ -1,6 +1,6 @@
 import { Session, Event, Run, Step } from './GoFlow';
 
-// a step and the events that occurred at that step
+// A step and the events that occurred at that step
 export class ExplainStep {
     public step: Step;
     public events: Event[];
@@ -11,6 +11,7 @@ export class ExplainStep {
     }
 }
 
+// A section of a session within the same run
 export class ExplainFrame {
     public run: Run;
     public runIndex: number;
@@ -47,8 +48,11 @@ export class ExplainFrame {
     }
 }
 
+export type URLResolver = (uuid: string) => string;
+
 export class Explain {
     public frames: ExplainFrame[];
+    public flowResolver: URLResolver | null;
 
     constructor(session: Session) {
         if (session.runs.length == 0) {
@@ -56,25 +60,13 @@ export class Explain {
         }
 
         // convert all runs to helpers
-        let helpers: RunHelper[] = []
-        let helpersByUUID: { [key: string]: RunHelper; } = {};
-        for (let r = 0; r < session.runs.length; r++) {
-            const run = session.runs[r];
-            const helper = new RunHelper(run, r);
-            helpers.push(helper);
-            helpersByUUID[run.uuid] = helper;
-        }
-
-        // go back through runs and set children and parents
-        for (let r = 0; r < helpers.length; r++) {
-            const helper = helpers[r];
-            if (helper.run.parent_uuid) {
-                helper.parent = helpersByUUID[helper.run.parent_uuid];
-                helper.parent.children.push(helper);
-            }
-        }
+        const helpers = this.buildRunHelpers(session.runs);
 
         this.frames = []
+
+        if (session._metadata != null) {
+            this.flowResolver = (uuid: string) => session._metadata ? `${session._metadata.site}/flow/editor/${uuid}/` : "";
+        }
 
         // helper to create a new current frame
         const newFrame = (run: RunHelper, depth: number, isResume: boolean) => {
@@ -118,6 +110,27 @@ export class Explain {
         }
 
         console.log("Explain calculated!");
+    }
+
+    private buildRunHelpers(runs: Run[]): RunHelper[] {
+        let helpers: RunHelper[] = []
+        let helpersByUUID: { [key: string]: RunHelper; } = {};
+        for (let r = 0; r < runs.length; r++) {
+            const run = runs[r];
+            const helper = new RunHelper(run, r);
+            helpers.push(helper);
+            helpersByUUID[run.uuid] = helper;
+        }
+
+        // go back through runs and set children and parents
+        for (let r = 0; r < helpers.length; r++) {
+            const helper = helpers[r];
+            if (helper.run.parent_uuid) {
+                helper.parent = helpersByUUID[helper.run.parent_uuid];
+                helper.parent.children.push(helper);
+            }
+        }
+        return helpers;
     }
 }
 

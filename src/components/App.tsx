@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './App.css';
-import { ReadSession } from 'src/utils/GoFlow';
 import { Timeline } from './Timeline';
-import { Explain } from 'src/utils/Explain';
+import { ReadSession } from '../utils/GoFlow';
+import { Explain } from '../utils/Explain';
 
 interface Props { }
 
@@ -12,6 +12,7 @@ interface State {
   problem: string;
 }
 
+// Our root component
 class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -50,7 +51,7 @@ class App extends React.Component<Props, State> {
         }
         {this.state.explain != null &&
           <div className="App-explain">
-            <Timeline frames={this.state.explain.frames} />
+            <Timeline frames={this.state.explain.frames} flowResolver={this.state.explain.flowResolver} />
           </div>
         }
       </div>
