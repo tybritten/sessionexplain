@@ -29,6 +29,12 @@
     height: 0.5em;
 }
 
+.Step-info-incomplete {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 .Event {
     padding: 0.2em;
 }
