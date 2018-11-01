@@ -15,7 +15,7 @@ interface State {
 class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { source: '{"status": "waiting", "runs": []}', explain: null, problem: "" };
+    this.state = { source: '', explain: null, problem: "" };
 
     this.handleExplain = this.handleExplain.bind(this);
     this.handleChangeSource = this.handleChangeSource.bind(this);
@@ -43,7 +43,7 @@ class App extends React.Component<Props, State> {
     return (
       <div className="App">
         <div className="App-header"><h1>🕵️ GoFlow Session Explain</h1></div>
-        <textarea className="App-source" value={this.state.source} onChange={this.handleChangeSource} />
+        <textarea className="App-source" value={this.state.source} onChange={this.handleChangeSource} placeholder="Paste indecipherable session dump here..." />
         <button onClick={this.handleExplain}>Explain</button>
         {this.state.problem != "" &&
           <div className="App-problem">{this.state.problem}</div>

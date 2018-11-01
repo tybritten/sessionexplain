@@ -40,10 +40,6 @@
     background-color: #EEE;
 }
 
-.Event-time {
-    font-weight: bold;
-}
-
 .Event-summary {
     font-weight: normal;
 }
@@ -59,7 +55,7 @@
 }
 
 .Event-body pre {
-    color: #AAA;
+    color: #888;
     font-family: 'Courier New', Courier, monospace;
     font-size: 12px;
 }
