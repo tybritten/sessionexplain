@@ -14,7 +14,7 @@ export class TimelineFrame extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
 
-        this.runColors = ['#F00', '#AA0', '#0A0', '#0AA', '#22F', '#800080', '#CD853F'];
+        this.runColors = ['#ff746d', '#8fed4b', '#65baf7', '#bf79e5', '#e5a647', '#a3d831', '#4fd1c8'];
     }
 
     public render() {
