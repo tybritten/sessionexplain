@@ -4,12 +4,18 @@ import { Session, Event, Run, Step } from './GoFlow';
 export class ExplainStep {
     public step: Step;
     public events: Event[];
-    public completed: boolean;
+    public isResume: boolean; // whether we resumed into this step
+    public isComplete: boolean; // whether we completed this step
 
-    constructor(step: Step) {
+    constructor(step: Step, isResume: boolean) {
         this.step = step;
         this.events = [];
-        this.completed = false;
+        this.isResume = isResume;
+        this.isComplete = false;
+    }
+
+    public markComplete() {
+        this.isComplete = true;
     }
 }
 
@@ -47,22 +53,21 @@ export class ExplainFrame {
         if (currentStep == null || currentStep.step.uuid != eventStep.uuid) {
             // mark previous step as completed
             if (currentStep != null) {
-                currentStep.completed = true;
+                currentStep.markComplete();
             }
 
-            currentStep = new ExplainStep(eventStep);
+            const stepIsResume = this.isResume && this.steps.length == 0;
+            currentStep = new ExplainStep(eventStep, stepIsResume);
             this.steps.push(currentStep)
         }
-
-        // console.log(`Adding event ${event.type} to step ${currentStep.step.uuid}`)
 
         currentStep.events.push(event);
     }
 
-    public markCompleted() {
+    public markComplete() {
         // mark final step as complete
         if (this.steps.length > 0) {
-            this.steps[this.steps.length - 1].completed = true;
+            this.steps[this.steps.length - 1].markComplete();
         }
     }
 }
@@ -111,7 +116,7 @@ export class Explain {
             let currentEvent = currentRun.events.shift();
 
             if (currentEvent == null) {
-                currentFrame.markCompleted();
+                currentFrame.markComplete();
 
                 // out of events in this run, resume reading from the parent
                 currentRun = currentRun.parent

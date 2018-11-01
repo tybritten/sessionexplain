@@ -29,7 +29,17 @@
     height: 0.5em;
 }
 
-.Step-info-incomplete {
+.Step-info.resumed {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.Step-info.resumed div {
+    background-color: inherit;
+}
+
+.Step-info.incomplete {
     border-bottom: none;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;

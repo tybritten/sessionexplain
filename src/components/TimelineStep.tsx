@@ -19,11 +19,18 @@ export class TimelineStep extends React.Component<Props> {
             <TimelineEvent event={event} key={`step${this.props.index}-event${i}`} />
         );
         const tooltip = `Node UUID: ${step.step.node_uuid}`;
-        const cssClasses = step.completed ? "Step-info" : "Step-info Step-info-incomplete";
+
+        const cssClasses = ["Step-info"];
+        if (step.isResume) {
+            cssClasses.push("resumed");
+        }
+        if (!step.isComplete) {
+            cssClasses.push("incomplete");
+        }
 
         return (
             <div className="Frame-step">
-                <div className={cssClasses} title={tooltip}>
+                <div className={cssClasses.join(" ")} title={tooltip}>
                     <div></div>
                 </div>
                 <div className="Step-events">{events}</div>
