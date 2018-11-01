@@ -4,10 +4,12 @@ import { Session, Event, Run, Step } from './GoFlow';
 export class ExplainStep {
     public step: Step;
     public events: Event[];
+    public completed: boolean;
 
     constructor(step: Step) {
         this.step = step;
         this.events = [];
+        this.completed = false;
     }
 }
 
@@ -32,19 +34,36 @@ export class ExplainFrame {
     }
 
     public addEvent(event: Event) {
-        const eventStep = this.helper.stepsByUUID[event.step_uuid];
+        // get the current step if we have one
         let currentStep: ExplainStep | null = null;
+        if (this.steps.length > 0) {
+            currentStep = this.steps[this.steps.length - 1];
+        }
 
-        if (this.steps.length == 0 || this.steps[this.steps.length - 1].step.uuid != eventStep.uuid) {
+        // lookup the step for this event
+        const eventStep = this.helper.stepsByUUID[event.step_uuid];
+
+        // do we need to add new step?
+        if (currentStep == null || currentStep.step.uuid != eventStep.uuid) {
+            // mark previous step as completed
+            if (currentStep != null) {
+                currentStep.completed = true;
+            }
+
             currentStep = new ExplainStep(eventStep);
             this.steps.push(currentStep)
-        } else {
-            currentStep = this.steps[this.steps.length - 1];
         }
 
         // console.log(`Adding event ${event.type} to step ${currentStep.step.uuid}`)
 
         currentStep.events.push(event);
+    }
+
+    public markCompleted() {
+        // mark final step as complete
+        if (this.steps.length > 0) {
+            this.steps[this.steps.length - 1].completed = true;
+        }
     }
 }
 
@@ -92,6 +111,8 @@ export class Explain {
             let currentEvent = currentRun.events.shift();
 
             if (currentEvent == null) {
+                currentFrame.markCompleted();
+
                 // out of events in this run, resume reading from the parent
                 currentRun = currentRun.parent
 
