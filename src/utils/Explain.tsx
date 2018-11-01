@@ -62,11 +62,16 @@ export class Explain {
         // convert all runs to helpers
         const helpers = this.buildRunHelpers(session.runs);
 
-        this.frames = []
-
+        // if we have a site URL, create a link resolver for flows
         if (session._metadata != null) {
-            this.flowResolver = (uuid: string) => session._metadata ? `${session._metadata.site}/flow/editor/${uuid}/` : "";
+            var siteURL = session._metadata.site;
+            if (!siteURL.endsWith("/")) {
+                siteURL += "/";
+            }
+            this.flowResolver = (uuid: string) => `${siteURL}flow/editor/${uuid}/`;
         }
+
+        this.frames = []
 
         // helper to create a new current frame
         const newFrame = (run: RunHelper, depth: number, isResume: boolean) => {
