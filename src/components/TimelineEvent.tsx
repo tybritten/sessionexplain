@@ -91,7 +91,7 @@ export class TimelineEvent extends React.Component<Props, State> {
             case "run_result_changed":
                 return ["📈", <>run result <i>{event.name}</i> changed to <i>{event.value}</i></>];
             case "session_triggered":
-                return ["🌱", <>session triggered for <i>{event.flow.name}</i></>];
+                return ["🏁", <>session triggered for <i>{event.flow.name}</i></>];
             case "webhook_called":
                 return ["☁️", <>called <i>{event.url}</i></>];
         }

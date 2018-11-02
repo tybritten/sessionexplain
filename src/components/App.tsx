@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import { Timeline } from './Timeline';
+import { TriggerInfo } from './TriggerInfo';
 import { ReadSession } from '../utils/GoFlow';
 import { Explain } from '../utils/Explain';
 
@@ -51,6 +52,7 @@ class App extends React.Component<Props, State> {
         }
         {this.state.explain != null &&
           <div className="App-explain">
+            <TriggerInfo trigger={this.state.explain.session.trigger} />
             <Timeline frames={this.state.explain.frames} flowResolver={this.state.explain.flowResolver} />
           </div>
         }

@@ -75,13 +75,13 @@ export class ExplainFrame {
 export type URLResolver = (uuid: string) => string;
 
 export class Explain {
+    public session: Session;
     public frames: ExplainFrame[];
     public flowResolver: URLResolver | null;
 
     constructor(session: Session) {
-        if (session.runs.length == 0) {
-            throw "Session has no runs";
-        }
+        this.session = session;
+        this.frames = []
 
         // convert all runs to helpers
         const helpers = this.buildRunHelpers(session.runs);
@@ -94,8 +94,6 @@ export class Explain {
             }
             this.flowResolver = (uuid: string) => `${siteURL}flow/editor/${uuid}/`;
         }
-
-        this.frames = []
 
         // helper to create a new current frame
         const newFrame = (run: RunHelper, depth: number, isResume: boolean) => {

@@ -54,7 +54,7 @@
 }
 
 .Event-header:hover {
-    background-color: #EEE;
+    background-color: #F6F6F6;
 }
 
 .Event-summary {
@@ -69,21 +69,4 @@
 .Event-summary .err {
     font-weight: bold;
     color: #A55;
-}
-
-.Event-body pre {
-    color: #888;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 12px;
-}
-
-.Event-summary i, .Frame-run-info i {
-    font-style: normal;
-    font-weight: bold;
-    color: #5A5;
-}
-
-.Event-summary i a, .Frame-run-info i a {
-    text-decoration: underline dotted #5A5;
-    color: #5A5;
 }

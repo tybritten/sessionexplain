@@ -1,0 +1,12 @@
+.Trigger-info {
+    border-top: 1px solid #444;
+    padding: 0.5em;
+}
+
+.Trigger-header {
+    cursor: pointer;
+}
+
+.Trigger-header:hover {
+    background-color: #F6F6F6;
+}

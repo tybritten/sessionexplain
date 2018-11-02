@@ -44,3 +44,20 @@
   padding-top: 1em;
 }
 
+i {
+  font-style: normal;
+  font-weight: bold;
+  color: #5A5;
+}
+
+i a {
+  text-decoration: underline dotted #5A5;
+  color: #5A5;
+}
+
+pre {
+  color: #777;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
