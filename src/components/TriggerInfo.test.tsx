@@ -70,6 +70,6 @@ it('renders appropriate summary for different trigger types', () => {
     for (let t = 0; t < tests.length; t++) {
         const wrapper = mount(<TriggerInfo trigger={tests[t].trigger} />);
         const info = wrapper.find('.Trigger-info');
-        expect(info.render().find(".Trigger-summary").text()).toBe(tests[t].summary);
+        expect(info.render().find(".Trigger-header").text()).toBe(tests[t].summary);
     }
 });

@@ -6,19 +6,45 @@ interface Props {
     trigger: Trigger;
 }
 
-export class TriggerInfo extends React.Component<Props> {
+interface State {
+    showBody: boolean;
+}
+
+export class TriggerInfo extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+
+        this.state = { showBody: false };
+
+        this.handleToggleBody = this.handleToggleBody.bind(this);
+    }
+
+    handleToggleBody() {
+        this.setState({ showBody: !this.state.showBody });
     }
 
     public render() {
         const triggerObj: any = this.props.trigger;
         const [emoji, summary] = this.renderType(this.props.trigger.type, triggerObj);
 
+        const body = { __html: "<pre>" + JSON.stringify(this.props.trigger, null, 2) + "</pre>" };
+        const bodyElem = (
+            <div dangerouslySetInnerHTML={body}></div>
+        );
+        const docsURL = `https://nyaruka.github.io/goflow/sessions.html#trigger:${this.props.trigger.type}`;
+
         return (
             <div className="Trigger-info">
-                <div className="Trigger-summary">{emoji} {summary}</div>
+                <div className="Trigger-header" onClick={this.handleToggleBody}>
+                    {emoji}
+                    &nbsp;
+                    <span className="Trigger-summary">{summary}</span>
+                </div>
+                <div className="Trigger-body" style={this.state.showBody ? {} : { "display": "none" }}>
+                    {bodyElem}
+                    <div><a href={docsURL} target="_blank">Docs</a></div>
+                </div>
             </div>
         );
     }
