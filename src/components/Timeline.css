@@ -76,14 +76,3 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: 12px;
 }
-
-.Event-summary i, .Frame-run-info i {
-    font-style: normal;
-    font-weight: bold;
-    color: #5A5;
-}
-
-.Event-summary i a, .Frame-run-info i a {
-    text-decoration: underline dotted #5A5;
-    color: #5A5;
-}

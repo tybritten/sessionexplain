@@ -24,11 +24,19 @@ export interface Run {
     parent_uuid: string | null;
 }
 
+export interface Trigger {
+    type: string;
+    flow: FlowReference;
+    contact: any;
+    environment: any;
+}
+
 export interface Metadata {
     site: string;
 }
 
 export interface Session {
+    trigger: Trigger;
     status: string;
     runs: Run[];
     _metadata: Metadata | null;
