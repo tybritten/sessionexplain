@@ -55,3 +55,9 @@ i a {
   color: #5A5;
 }
 
+pre {
+  color: #777;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
