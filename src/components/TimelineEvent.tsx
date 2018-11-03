@@ -83,9 +83,9 @@ export class TimelineEvent extends React.Component<Props, State> {
             case "input_labels_added":
                 return ["🏷️", <>labeled with {renderValList(event.labels)}</>];
             case "msg_created":
-                return ["💬", <>message sent <span className="msg">"{event.msg.text}"</span></>];
+                return ["💬", <>message sent <span className="msg">{event.msg.text}</span></>];
             case "msg_received":
-                return ["📥", <>message received <span className="msg">"{event.msg.text}"</span></>];
+                return ["📥", <>message received <span className="msg">{event.msg.text}</span></>];
             case "msg_wait":
                 return ["⏳", <>waiting for message...</>];
             case "run_result_changed":

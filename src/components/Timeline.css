@@ -63,7 +63,8 @@
 
 .Event-summary .msg {
     font-weight: bold;
-    color: #55A;
+    color: rgb(87, 140, 184);
+    font-style: italic;
 }
 
 .Event-summary .err {
