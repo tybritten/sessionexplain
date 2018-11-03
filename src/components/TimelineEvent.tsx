@@ -93,7 +93,8 @@ export class TimelineEvent extends React.Component<Props, State> {
             case "session_triggered":
                 return ["🏁", <>session triggered for <i>{event.flow.name}</i></>];
             case "webhook_called":
-                return ["☁️", <>called <i>{event.url}</i></>];
+                const url = truncate(event.url, 50);
+                return ["☁️", <>called <i>{url}</i></>];
         }
         return ["❓", <>{typeName}</>];
     }
@@ -116,4 +117,14 @@ function joinElements(items: JSX.Element[], sep?: JSX.Element): JSX.Element[] {
         elements.push(items[i]);
     }
     return elements;
+}
+
+function truncate(str: string, length: number, ending?: string) {
+    if (ending == null) {
+        ending = '...';
+    }
+    if (str.length > length) {
+        return str.substring(0, length - ending.length) + ending;
+    }
+    return str;
 }
