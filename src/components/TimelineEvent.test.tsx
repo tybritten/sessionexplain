@@ -37,6 +37,12 @@ it('renders appropriate summary for different event types', () => {
         },
         {
             event: {
+                type: "contact_refreshed"
+            },
+            summary: "👤 contact refreshed on resume"
+        },
+        {
+            event: {
                 type: "contact_timezone_changed",
                 timezone: ""
             },
@@ -48,6 +54,24 @@ it('renders appropriate summary for different event types', () => {
                 timezone: "Africa/Kigali"
             },
             summary: "🕑 timezone changed to Africa/Kigali"
+        },
+        {
+            event: {
+                type: "environment_refreshed"
+            },
+            summary: "⚙️ environment refreshed on resume"
+        },
+        {
+            event: {
+                type: "run_expired"
+            },
+            summary: "📆 resuming due to child run expiring"
+        },
+        {
+            event: {
+                type: "wait_timed_out"
+            },
+            summary: "⏲️ resuming due to wait timeout"
         },
         {
             event: {

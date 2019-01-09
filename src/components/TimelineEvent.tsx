@@ -66,32 +66,42 @@ export class TimelineEvent extends React.Component<Props, State> {
                     msgs.push(<span key={1}>removed from {renderValList(event.groups_removed)}</span>);
                 }
                 return ["👪", <>{joinElements(msgs)}</>];
-            case "contact_name_changed":
-                return ["📛", <>name {event.name ? <>changed to <i>{event.name}</i></> : <>cleared</>}</>];
             case "contact_language_changed":
                 return ["🌐", <>language {event.language ? <>changed to <i>{event.language}</i></> : <>cleared</>}</>];
+            case "contact_name_changed":
+                return ["📛", <>name {event.name ? <>changed to <i>{event.name}</i></> : <>cleared</>}</>];
+            case "contact_refreshed":
+                return ["👤", <>contact refreshed on resume</>];
             case "contact_timezone_changed":
                 return ["🕑", <>timezone {event.timezone ? <>changed to <i>{event.timezone}</i></> : <>cleared</>}</>];
             case "contact_urns_changed":
                 return ["☎️", <>URNs changed to {renderValList(event.urns)}</>];
             case "email_created":
                 return ["✉️", <>email sent to {renderValList(event.addresses)}</>];
+            case "environment_refreshed":
+                return ["⚙️", <>environment refreshed on resume</>];
             case "error":
                 return ["⚠️", <span className="err">{event.text}</span>];
-            case "flow_triggered":
-                return ["↪️", <>triggered flow <i>{event.flow.name}</i></>];
+            case "flow_entered":
+                return ["↪️", <>entered flow <i>{event.flow.name}</i></>];
             case "input_labels_added":
                 return ["🏷️", <>labeled with {renderValList(event.labels)}</>];
+            case "ivr_created":
+                return ["📞", <>IVR created <span className="msg">{event.msg.text}</span></>];
             case "msg_created":
-                return ["💬", <>message sent <span className="msg">{event.msg.text}</span></>];
+                return ["💬", <>message created <span className="msg">{event.msg.text}</span></>];
             case "msg_received":
                 return ["📥", <>message received <span className="msg">{event.msg.text}</span></>];
             case "msg_wait":
                 return ["⏳", <>waiting for message...</>];
+            case "run_expired":
+                return ["📆", <>resuming due to child run expiring</>];
             case "run_result_changed":
                 return ["📈", <>run result <i>{event.name}</i> changed to <i>{event.value}</i></>];
             case "session_triggered":
                 return ["🏁", <>session triggered for <i>{event.flow.name}</i></>];
+            case "wait_timed_out":
+                return ["⏲️", <>resuming due to wait timeout</>];
             case "webhook_called":
                 const url = truncate(event.url, 50);
                 return ["☁️", <>called <i>{url}</i></>];
