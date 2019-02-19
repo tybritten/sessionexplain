@@ -65,7 +65,7 @@ it('renders appropriate summary for different event types', () => {
             event: {
                 type: "run_expired"
             },
-            summary: "📆 resuming due to child run expiring"
+            summary: "📆 exiting due to expiration"
         },
         {
             event: {

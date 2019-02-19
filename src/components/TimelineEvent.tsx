@@ -95,7 +95,7 @@ export class TimelineEvent extends React.Component<Props, State> {
             case "msg_wait":
                 return ["⏳", <>waiting for message...</>];
             case "run_expired":
-                return ["📆", <>resuming due to child run expiring</>];
+                return ["📆", <>exiting due to expiration</>];
             case "run_result_changed":
                 return ["📈", <>run result <i>{event.name}</i> changed to <i>{event.value}</i></>];
             case "session_triggered":
