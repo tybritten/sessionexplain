@@ -127,11 +127,11 @@ export class Explain {
             } else {
                 currentFrame.addEvent(currentEvent);
 
-                if (currentEvent.type == "flow_triggered") {
+                if (currentEvent.type == "flow_entered") {
                     // switch to reading events from the next child that this event spawned
                     currentRun = currentRun.children.shift();
                     if (currentRun == null) {
-                        throw "Couldn't find child run for flow_triggered event";
+                        throw "Couldn't find child run for flow_entered event";
                     }
                     currentFrame = newFrame(currentRun, currentFrame.depth + 1, false);
                 }
