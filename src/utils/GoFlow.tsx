@@ -46,11 +46,11 @@ export function ReadSession(src: string): Session {
     try {
         var obj = JSON.parse(src);
     } catch (e) {
-        throw `invalid JSON: ${e}`;
+        throw new Error(`invalid JSON: ${e}`);
     }
 
     if (!isSession(obj)) {
-        throw "not a valid session object"
+        throw new Error("not a valid session object")
     }
 
     return obj

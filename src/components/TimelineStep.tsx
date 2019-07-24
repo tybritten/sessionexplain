@@ -9,10 +9,6 @@ interface Props {
 
 export class TimelineStep extends React.Component<Props> {
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     public render() {
         const step = this.props.step;
         const events = step.events.map((event, i) =>

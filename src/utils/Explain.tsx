@@ -50,13 +50,13 @@ export class ExplainFrame {
         const eventStep = this.helper.stepsByUUID[event.step_uuid];
 
         // do we need to add new step?
-        if (currentStep == null || currentStep.step.uuid != eventStep.uuid) {
+        if (currentStep == null || currentStep.step.uuid !== eventStep.uuid) {
             // mark previous step as completed
             if (currentStep != null) {
                 currentStep.markComplete();
             }
 
-            const stepIsResume = this.isResume && this.steps.length == 0;
+            const stepIsResume = this.isResume && this.steps.length === 0;
             currentStep = new ExplainStep(eventStep, stepIsResume);
             this.steps.push(currentStep)
         }
@@ -127,11 +127,11 @@ export class Explain {
             } else {
                 currentFrame.addEvent(currentEvent);
 
-                if (currentEvent.type == "flow_entered") {
+                if (currentEvent.type === "flow_entered") {
                     // switch to reading events from the next child that this event spawned
                     currentRun = currentRun.children.shift();
                     if (currentRun == null) {
-                        throw "Couldn't find child run for flow_entered event";
+                        throw new Error("Couldn't find child run for flow_entered event");
                     }
                     currentFrame = newFrame(currentRun, currentFrame.depth + 1, false);
                 }

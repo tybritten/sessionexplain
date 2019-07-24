@@ -12,10 +12,6 @@ interface Props {
 // Timeline of session frames
 export class Timeline extends React.Component<Props> {
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     public render() {
         const items = this.props.frames.map((frame, i) =>
             <TimelineFrame frame={frame} index={i} key={`frame${i}`} flowResolver={this.props.flowResolver} />
