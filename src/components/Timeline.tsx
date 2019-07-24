@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Timeline.css';
 
-import { ExplainFrame, URLResolver } from 'src/utils/Explain';
+import { ExplainFrame, URLResolver } from 'utils/Explain';
 import { TimelineFrame } from './TimelineFrame';
 
 interface Props {

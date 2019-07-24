@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TimelineStep } from './TimelineStep';
-import { ExplainFrame, URLResolver } from 'src/utils/Explain';
+import { ExplainFrame, URLResolver } from 'utils/Explain';
 
 interface Props {
     frame: ExplainFrame;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Trigger } from 'src/utils/GoFlow';
+import { Trigger } from 'utils/GoFlow';
 import './TriggerInfo.css';
 
 interface Props {

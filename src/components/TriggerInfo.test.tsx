@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TriggerInfo } from './TriggerInfo';
 import { mount, configure } from 'enzyme';
-import * as ReactSixteenAdapter from 'enzyme-adapter-react-16';
+import ReactSixteenAdapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -15,7 +15,7 @@ it('renders appropriate summary for different trigger types', () => {
                     campaign: { "uuid": "58e9b092-fe42-4173-876c-ff45a14a24fe", "name": "New Mothers" }
                 }
             },
-            summary: "📅 started by event in New Mothers campaign"
+            summary: "📅 started by event in New Mothers campaign"
         },
         {
             trigger: {
@@ -25,25 +25,25 @@ it('renders appropriate summary for different trigger types', () => {
                     channel: { uuid: "58e9b092-fe42-4173-876c-ff45a14a24fe", name: "Facebook" }
                 }
             },
-            summary: "📻 started by new_conversation event on Facebook channel"
+            summary: "📻 started by new_conversation event on Facebook channel"
         },
         {
             trigger: {
                 type: "flow_action"
             },
-            summary: "🏁 started by action in another flow session"
+            summary: "🏁 started by action in another flow session"
         },
         {
             trigger: {
                 type: "manual"
             },
-            summary: "👷 manually started"
+            summary: "👷 manually started"
         },
         {
             trigger: {
                 type: "msg"
             },
-            summary: "📥 message received that didn't match anything else"
+            summary: "📥 message received that didn't match anything else"
         },
         {
             trigger: {
@@ -53,7 +53,7 @@ it('renders appropriate summary for different trigger types', () => {
                     keyword: "start"
                 }
             },
-            summary: "📥 message received whose first word matched start"
+            summary: "📥 message received whose first word matched start"
         },
         {
             trigger: {
@@ -63,7 +63,7 @@ it('renders appropriate summary for different trigger types', () => {
                     keyword: "start"
                 }
             },
-            summary: "📥 message received whose only word matched start"
+            summary: "📥 message received whose only word matched start"
         }
     ];
 

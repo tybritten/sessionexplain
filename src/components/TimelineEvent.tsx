@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Event } from 'src/utils/GoFlow';
+import { Event } from 'utils/GoFlow';
 
 interface Props {
     event: Event;

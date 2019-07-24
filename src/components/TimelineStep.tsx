@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TimelineEvent } from './TimelineEvent';
-import { ExplainStep } from 'src/utils/Explain';
+import { ExplainStep } from 'utils/Explain';
 
 interface Props {
     step: ExplainStep;
