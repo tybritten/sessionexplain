@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Event } from 'src/utils/GoFlow';
+import { Event } from 'utils/GoFlow';
 
 interface Props {
     event: Event;
@@ -42,7 +42,7 @@ export class TimelineEvent extends React.Component<Props, State> {
                 </div>
                 <div className="Event-body" style={this.state.showBody ? {} : { "display": "none" }}>
                     {bodyElem}
-                    <div><a href={docsURL} target="_blank">Docs</a></div>
+                    <div><a href={docsURL} target="_blank" rel="noopener noreferrer">Docs</a></div>
                 </div>
             </div>
         );

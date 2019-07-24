@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Trigger } from 'src/utils/GoFlow';
+import { Trigger } from 'utils/GoFlow';
 import './TriggerInfo.css';
 
 interface Props {
@@ -43,7 +43,7 @@ export class TriggerInfo extends React.Component<Props, State> {
                 </div>
                 <div className="Trigger-body" style={this.state.showBody ? {} : { "display": "none" }}>
                     {bodyElem}
-                    <div><a href={docsURL} target="_blank">Docs</a></div>
+                    <div><a href={docsURL} target="_blank" rel="noopener noreferrer">Docs</a></div>
                 </div>
             </div>
         );

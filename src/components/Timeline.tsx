@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Timeline.css';
 
-import { ExplainFrame, URLResolver } from 'src/utils/Explain';
+import { ExplainFrame, URLResolver } from 'utils/Explain';
 import { TimelineFrame } from './TimelineFrame';
 
 interface Props {
@@ -11,10 +11,6 @@ interface Props {
 
 // Timeline of session frames
 export class Timeline extends React.Component<Props> {
-
-    constructor(props: Props) {
-        super(props);
-    }
 
     public render() {
         const items = this.props.frames.map((frame, i) =>

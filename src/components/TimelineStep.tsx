@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TimelineEvent } from './TimelineEvent';
-import { ExplainStep } from 'src/utils/Explain';
+import { ExplainStep } from 'utils/Explain';
 
 interface Props {
     step: ExplainStep;
@@ -8,10 +8,6 @@ interface Props {
 }
 
 export class TimelineStep extends React.Component<Props> {
-
-    constructor(props: Props) {
-        super(props);
-    }
 
     public render() {
         const step = this.props.step;
