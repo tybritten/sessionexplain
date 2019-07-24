@@ -37,7 +37,7 @@ class App extends React.Component<Props, State> {
 
       this.setState({ source: source, explain: explain, problem: "" });
     } catch (e) {
-      this.setState({ source: this.state.source, explain: null, problem: e });
+      this.setState({ source: this.state.source, explain: null, problem: e.message });
     }
   }
 

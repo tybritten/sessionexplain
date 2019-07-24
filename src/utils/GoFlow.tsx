@@ -49,6 +49,11 @@ export function ReadSession(src: string): Session {
         throw new Error(`invalid JSON: ${e}`);
     }
 
+    // could be an output from simulator which has nested session
+    if (typeof obj.session === "object") {
+        obj = obj.session
+    }
+
     if (!isSession(obj)) {
         throw new Error("not a valid session object")
     }
