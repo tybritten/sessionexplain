@@ -63,6 +63,20 @@ it('renders appropriate summary for different event types', () => {
         },
         {
             event: {
+                type: "error",
+                text: "I'm an error"
+            },
+            summary: "⚠️ I'm an error"
+        },
+        {
+            event: {
+                type: "failure",
+                text: "I'm a failure"
+            },
+            summary: "⚰️ I'm a failure"
+        },
+        {
+            event: {
                 type: "run_expired"
             },
             summary: "📆 exiting due to expiration"
