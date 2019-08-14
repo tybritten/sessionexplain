@@ -67,6 +67,11 @@
     font-style: italic;
 }
 
+.Event-summary .warn {
+    font-weight: bold;
+    color: rgb(245, 229, 159);
+}
+
 .Event-summary .err {
     font-weight: bold;
     color: #A55;

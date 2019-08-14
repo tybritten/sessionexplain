@@ -81,7 +81,9 @@ export class TimelineEvent extends React.Component<Props, State> {
             case "environment_refreshed":
                 return ["⚙️", <>environment refreshed on resume</>];
             case "error":
-                return ["⚠️", <span className="err">{event.text}</span>];
+                return ["⚠️", <span className="warn">{event.text}</span>];
+            case "failure":
+                return ["⚰️", <span className="err">{event.text}</span>];
             case "flow_entered":
                 return ["↪️", <>entered flow <i>{event.flow.name}</i></>];
             case "input_labels_added":
