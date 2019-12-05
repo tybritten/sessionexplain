@@ -70,6 +70,22 @@ it('renders appropriate summary for different event types', () => {
         },
         {
             event: {
+                type: "email_created",
+                subject: "Hi there",
+                addresses: ["bob@nyaruka.com", "jim@nyaruka.com"]
+            },
+            summary: "✉️ email sent to bob@nyaruka.com, jim@nyaruka.com"
+        },
+        {
+            event: {
+                type: "email_sent",
+                subject: "Hi there",
+                to: ["bob@nyaruka.com", "jim@nyaruka.com"]
+            },
+            summary: "✉️ email sent to bob@nyaruka.com, jim@nyaruka.com with subject Hi there"
+        },
+        {
+            event: {
                 type: "failure",
                 text: "I'm a failure"
             },

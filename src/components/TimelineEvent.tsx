@@ -78,6 +78,8 @@ export class TimelineEvent extends React.Component<Props, State> {
                 return ["☎️", <>URNs changed to {renderValList(event.urns)}</>];
             case "email_created":
                 return ["✉️", <>email sent to {renderValList(event.addresses)}</>];
+            case "email_sent":
+                return ["✉️", <>email sent to {renderValList(event.to)} with subject <i>{event.subject}</i></>];
             case "environment_refreshed":
                 return ["⚙️", <>environment refreshed on resume</>];
             case "error":
